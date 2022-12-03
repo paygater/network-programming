@@ -28,35 +28,33 @@ public class QuestionDAL extends ConnecttoXampp {
     }
 
     public int addQuest(QuestionModel us) throws SQLException {
-        String query = "INSERT INTO quest (idquest, question, answerA, answerB, answerC, answerD, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO quest ( question, answerA, answerB, answerC, answerD, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement p = this.getConnection().prepareStatement(query);
-        p.setInt(1, us.getIdquest());
-        p.setString(2, us.getQuestion());
-        p.setString(3, us.getAnswerA());
-        p.setString(4, us.getAnswerB());
-        p.setString(5, us.getAnswerC());
-        p.setString(6, us.getAnswerD());
-        p.setBoolean(7, us.isStatus());
+        p.setString(1, us.getQuestion());
+        p.setString(2, us.getAnswerA());
+        p.setString(3, us.getAnswerB());
+        p.setString(4, us.getAnswerC());
+        p.setString(5, us.getAnswerD());
+        p.setBoolean(6, us.isStatus());
         int result = p.executeUpdate();
         return result;
     }
 
-    public int updateUser(QuestionModel us) throws SQLException {
-        String query = "UPDATE quest SET idquest = ?,question = ?, answerA = ?, answerB = ?, answerC = ?, answerD = ?, status = ? WHERE idquest = ?";
+    public int updateQuest(QuestionModel us) throws SQLException {
+        String query = "UPDATE quest SET question = ?, answerA = ?, answerB = ?, answerC = ?, answerD = ?, status = ? WHERE idquest = ?";
         PreparedStatement p = this.getConnection().prepareStatement(query);
-        p.setInt(1, us.getIdquest());
-        p.setString(2, us.getQuestion());
-        p.setString(3, us.getAnswerA());
-        p.setString(4, us.getAnswerB());
-        p.setString(5, us.getAnswerC());
-        p.setString(6, us.getAnswerD());
-        p.setBoolean(7, us.isStatus());
+        p.setString(1, us.getQuestion());
+        p.setString(2, us.getAnswerA());
+        p.setString(3, us.getAnswerB());
+        p.setString(4, us.getAnswerC());
+        p.setString(5, us.getAnswerD());
+        p.setBoolean(6, us.isStatus());
         int result = p.executeUpdate();
         return result;
     }
 
     public ArrayList loadQuestion() throws SQLException {
-        String query = "SELECT * FROM User";
+        String query = "SELECT * FROM quest";
         PreparedStatement p = this.getConnection().prepareStatement(query);
         ResultSet rs = p.executeQuery();
         ArrayList<QuestionModel> questionList = new ArrayList();
@@ -74,15 +72,15 @@ public class QuestionDAL extends ConnecttoXampp {
         }
         return questionList;
     }
-    public Boolean checkDuplicate(String question) throws SQLException {
-        String query = "SELECT * FROM quest WHERE question = ?";
+    public Boolean checkDuplicate(int idquest) throws SQLException {
+        String query = "SELECT * FROM quest WHERE idquest = ?";
         PreparedStatement p = this.getConnection().prepareStatement(query);
-        p.setString(1, question);
+        p.setInt(1, idquest);
         ResultSet rs = p.executeQuery();
         return rs.next();
     }
     public int setOnlOff(int idquest, boolean status) throws SQLException{
-        String query = "UPDATE user SET status = ? Where UserID = ?";
+        String query = "UPDATE quest SET status = ? Where idquest = ?";
         PreparedStatement p = this.getConnection().prepareStatement(query);
         p.setBoolean(1, status);
         p.setInt(2, idquest);
