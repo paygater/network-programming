@@ -6,7 +6,7 @@ package Momo.server;
 
 /**
  *
- * @author duyph
+ * @author Admin
  */
 public class QuestionModel {
 

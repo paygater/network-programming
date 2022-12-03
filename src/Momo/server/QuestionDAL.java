@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author duyph
+ * @author Admin
  */
 public class QuestionDAL extends ConnecttoXampp {
 
